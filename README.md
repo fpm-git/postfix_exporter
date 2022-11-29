@@ -1,3 +1,16 @@
+# Build
+```
+VERSION_NUMBER=v1.0.0
+docker build -t docker.pkg.github.com/fpm-git/postfix_exporter/postfix_exporter:$VERSION_NUMBER .
+docker push docker.pkg.github.com/fpm-git/postfix_exporter/postfix_exporter:$VERSION_NUMBER
+```
+
+Auth to push: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry
+```
+export CR_PAT=YOUR_TOKEN
+echo $CR_PAT | docker login docker.pkg.github.com -u USERNAME --password-stdin
+```
+
 # Prometheus Postfix exporter
 
 Prometheus metrics exporter for [the Postfix mail server](http://www.postfix.org/).
