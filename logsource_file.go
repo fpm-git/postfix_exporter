@@ -14,13 +14,13 @@ type FileLogSource struct {
 	tailer *tail.Tail
 }
 
-// NewFileLogSource creates a new log source, tailing the given file.
+// NewFileLogSource creates a new log source, tailing the given file from the beginning.
 func NewFileLogSource(path string) (*FileLogSource, error) {
 	tailer, err := tail.TailFile(path, tail.Config{
 		ReOpen:    true,                               // reopen the file if it's rotated
 		MustExist: true,                               // fail immediately if the file is missing or has incorrect permissions
 		Follow:    true,                               // run in follow mode
-		Location:  &tail.SeekInfo{Whence: io.SeekEnd}, // seek to end of file
+		Location:  &tail.SeekInfo{Offset: 0, Whence: io.SeekStart}, // seek to beginning of file
 		Logger:    tail.DiscardingLogger,
 	})
 	if err != nil {
